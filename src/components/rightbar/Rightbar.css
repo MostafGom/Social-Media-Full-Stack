@@ -1,0 +1,95 @@
+.rightbar {
+  flex: 3;
+}
+
+.rightbarWrapper {
+  padding: 20px;
+}
+
+.birthdayContainer {
+  display: flex;
+  align-items: center;
+}
+
+.birthdayImage {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+
+.birthdayText {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.adImage {
+  width: 100%;
+  margin: 50px 0;
+  border-radius: 10px;
+}
+
+
+
+/* chat section */
+
+.rightbarChatTitle {
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.rightbarFriendList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+
+
+/* profile style */
+
+.profileRightbarTitle {
+  margin-bottom: 15px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.profileRightbarInfo {
+  margin-bottom: 30px;
+}
+
+.profileRightbarInfoItem {
+  margin-bottom: 10px;
+}
+
+.profileRightbarInfoKey {
+  color: #555;
+  margin-right: 10px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.profileRightbarInfoValue {
+  font-weight: 500;
+}
+
+.profileRightbarFollowings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.profileRightbarFollowing {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.profileRightbarFollowingImage {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
