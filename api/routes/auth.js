@@ -11,6 +11,8 @@ router.post('/register', async (req, res) => {
       username: req.body.username,
       email: req.body.email,
       password: hashPassword,
+      city: req.body.city,
+      from: req.body.from
     })
     const user = await newUser.save()
     res.status(200).json(user)

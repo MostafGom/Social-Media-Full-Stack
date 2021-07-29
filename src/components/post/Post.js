@@ -1,15 +1,27 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MoreVert } from '@material-ui/icons'
 import './Post.css'
-import { Users } from '../../dummyUserData'
+import axios from 'axios'
+import { format } from 'timeago.js'
+import { Link } from 'react-router-dom'
 
-function Posts({ post }) {
-  const user = Users.filter(user => user.id === post.userId)[0]
-  const username = user.username
-  const userimg = user.profilePicture
+function Post({ post }) {
 
-  const [likes, setLikes] = useState(post.like)
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
+  const [likes, setLikes] = useState(post.likes.length)
+  const [user, setUser] = useState({})
   const [isLiked, setIsLiked] = useState(false)
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`/users?userId=${post.userId}`)
+      setUser(response.data);
+    }
+    fetchUser()
+  }, [post.userId])
+
+
 
   const handleLike = () => {
     setLikes(isLiked ? likes - 1 : likes + 1)
@@ -23,15 +35,17 @@ function Posts({ post }) {
         <div className="postTop">
           {/* start top left */}
           <div className="postTopLeft">
-            <img src={userimg}
-              alt="post-author"
-              className="postProfileImage" />
+            <Link to={`/profile/${user.username}`} >
+              <img src={user.profilePicture ? PF + user.profilePicture : PF + 'default_avatar.png'}
+                alt="post-author"
+                className="postProfileImage" />
+            </Link>
 
             <div className="postInfo">
               <span className="postUsername">
-                {username}
+                {user.username}
               </span>
-              <span className="postDate">{post.date} </span>
+              <span className="postDate">{format(post.createdAt)} </span>
             </div>
           </div>
           {/* end top left */}
@@ -51,7 +65,7 @@ function Posts({ post }) {
           <span className="postCenterContent">
             {post?.desc}
           </span>
-          <img src={post.photo} alt="postpic" className="postCenterImage" />
+          <img src={post.img && PF + post.img} alt="postpic" className="postCenterImage" />
         </div>
         {/* end post center */}
 
@@ -59,8 +73,9 @@ function Posts({ post }) {
         <div className="postBottom">
           {/* start bottom left */}
           <div className="postBottomLeft">
-            <img src="/assets/like3.png" alt="" className="postLikeIcons" onClick={handleLike} />
-            <img src="/assets/love.png" alt="" className="postLikeIcons" onClick={handleLike} />
+            <img src={PF + "like3.png"} alt="" className="postLikeIcons" onClick={handleLike} />
+            <img src={PF +
+              "love.png"} alt="" className="postLikeIcons" onClick={handleLike} />
             <span className="postLikeCounter">{likes} Like this</span>
           </div>
           {/* end bottom left */}
@@ -80,4 +95,4 @@ function Posts({ post }) {
   )
 }
 
-export default Posts
+export default Post

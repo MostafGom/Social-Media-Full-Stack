@@ -2,32 +2,32 @@ export const Users =
   [
     {
       id: 1,
-      profilePicture: 'assets/people/person_1.jpg',
+      profilePicture: 'people/person_1.jpg',
       username: 'Sokope mpwkd'
     },
     {
       id: 2,
-      profilePicture: 'assets/people/person_2.jpg',
+      profilePicture: 'people/person_2.jpg',
       username: 'Ljiow nmwyu'
     },
     {
       id: 3,
-      profilePicture: 'assets/people/person_3.jpg',
+      profilePicture: 'people/person_3.jpg',
       username: 'Aquyg wpopncs'
     },
     {
       id: 4,
-      profilePicture: 'assets/people/person_4.jpg',
+      profilePicture: 'people/person_4.jpg',
       username: 'Dnmeku suipe'
     },
     {
       id: 5,
-      profilePicture: 'assets/people/person_5.jpg',
+      profilePicture: 'people/person_5.jpg',
       username: 'Ojljeo meerermeio'
     },
     {
       id: 6,
-      profilePicture: 'assets/people/person_6.jpg',
+      profilePicture: 'people/person_6.jpg',
       username: 'XZuihw weiuph'
     },
   ]
@@ -36,7 +36,7 @@ export const Posts =
   [
     {
       id: 1,
-      photo: 'assets/posts/post_1.jpg',
+      photo: 'posts/post_1.jpg',
       desc: "lorem djkiow nmnm,csuihpwe lad;lwdideios,dsdw",
       userId: 1,
       date: "just now",
@@ -45,7 +45,7 @@ export const Posts =
     },
     {
       id: 2,
-      photo: 'assets/posts/post_2.jpg',
+      photo: 'posts/post_2.jpg',
       desc: "opwe[inm,n fweiopf[weuwer]] lad;lwdideios,dsdw",
       userId: 2,
       date: "8 mins ago",
@@ -54,7 +54,7 @@ export const Posts =
     },
     {
       id: 3,
-      photo: 'assets/posts/post_3.jpg',
+      photo: 'posts/post_3.jpg',
       desc: "ergfdvvefg44 fvfsderferweuwer]] lad;lwdideios,dsdw",
       userId: 3,
       date: "8 hrs ago",
@@ -63,7 +63,7 @@ export const Posts =
     },
     {
       id: 4,
-      photo: 'assets/posts/post_4.jpg',
+      photo: 'posts/post_4.jpg',
       desc: "opwe[inm,n fweiopf[weuwer]] lad;lwdideios,dsdw",
       userId: 4,
       date: "3 hrs ago",

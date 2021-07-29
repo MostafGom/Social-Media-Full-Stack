@@ -1,4 +1,5 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Rightbar'
 import Sidebar from '../../components/sidebar/Sidebar'
@@ -7,6 +8,19 @@ import "./Profile.css"
 
 
 function Profile() {
+
+  const [user, setUser] = useState({})
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get('/users?username=fgtyuj')
+      setUser(response.data);
+    }
+    fetchUser()
+  }, [])
+
+
   return (
     <>
       <Topbar />
@@ -17,11 +31,11 @@ function Profile() {
           <div className="profileRightTop">
             {/* start profile cover */}
             <div className="profileCover">
-              <img src="/assets/cover.jpg"
+              <img src={user.coverPicture || PF + "/cover.jpg"}
                 alt=""
                 className="profileCoverImage"
               />
-              <img src="/assets/people/person_1.jpg"
+              <img src={PF + user.profilePicture || PF + "/default_avatar.png"}
                 alt=""
                 className="profileUserImage"
               />
@@ -30,17 +44,17 @@ function Profile() {
 
             {/* start profile info */}
             <div className="profileInfo">
-              <h4 className="profileInfoName">Jdoio rnlwo</h4>
+              <h4 className="profileInfoName">{user.username}</h4>
               <span className="profileInfoDesc">
-                Lorem ipsum dolor sit.
+                {user.desc}
               </span>
             </div>
             {/* end profile info */}
           </div>
 
           <div className="profileRightBottom">
-            <Feed />
-            <Rightbar profile />
+            <Feed username='fgtyuj' />
+            <Rightbar user={user} />
           </div>
           {/* end profile right */}
 

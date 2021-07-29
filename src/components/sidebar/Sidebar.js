@@ -6,6 +6,7 @@ import CloseFriend from '../closeFriend/CloseFriend'
 
 
 function Sidebar() {
+
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">

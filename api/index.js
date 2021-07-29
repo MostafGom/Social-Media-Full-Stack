@@ -12,19 +12,14 @@ const postRoute = require('./routes/posts')
 
 dotenv.config()
 
-try {
-  mongoose.connect(process.env.MONGO_URL,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
 
-    }, () => {
-      console.log("connection to db ✔️");
-    });
-
-} catch (error) {
-  console.log(error);
-}
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then((db) => console.log("db is connected ✔️"))
+  .catch((err) => console.log(err));
 
 
 

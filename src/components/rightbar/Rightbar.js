@@ -3,7 +3,8 @@ import './Rightbar.css'
 import { Users } from '../../dummyUserData'
 import Online from '../online/Online'
 
-function Rightbar({ profile }) {
+function Rightbar({ user }) {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
 
   const HomeRightbar = () => {
     return (
@@ -46,19 +47,24 @@ function Rightbar({ profile }) {
           {/* start Info item */}
           <div className="profileRightbarInfoItem">
             <span className="profileRightbarInfoKey">City : </span>
-            <span className="profileRightbarInfoValue">Cairo</span>
+            <span className="profileRightbarInfoValue">{user.city}</span>
           </div>
           {/* end Info item */}
           {/* start Info item */}
           <div className="profileRightbarInfoItem">
             <span className="profileRightbarInfoKey">Hobby : </span>
-            <span className="profileRightbarInfoValue">Football </span>
+            <span className="profileRightbarInfoValue">{user.from}</span>
           </div>
           {/* end Info item */}
           {/* start Info item */}
           <div className="profileRightbarInfoItem">
             <span className="profileRightbarInfoKey">Status : </span>
-            <span className="profileRightbarInfoValue">Single </span>
+            <span className="profileRightbarInfoValue">
+              {user.relationship === 1
+                ? "Single"
+                : user.relationship === 2
+                  ? "Married"
+                  : ""} </span>
           </div>
           {/* end Info item */}
         </div>
@@ -67,12 +73,12 @@ function Rightbar({ profile }) {
 
 
         {/* start friends */}
-        <h4 className="profileRightbarTitle">User Friends</h4>
+        <h4 className="profileRightbarTitle">Friends list</h4>
         <div className="profileRightbarFollowings">
           {/* start following */}
           <div className="profileRightbarFollowing">
             <img
-              src="assets/people/person_3.jpg"
+              src={PF + "people/person_3.jpg"}
               alt=""
               className="profileRightbarFollowingImage"
             />
@@ -84,7 +90,7 @@ function Rightbar({ profile }) {
           {/* start following */}
           <div className="profileRightbarFollowing">
             <img
-              src="assets/people/person_5.jpg"
+              src={PF + "people/person_5.jpg"}
               alt=""
               className="profileRightbarFollowingImage"
             />
@@ -96,7 +102,7 @@ function Rightbar({ profile }) {
           {/* start following */}
           <div className="profileRightbarFollowing">
             <img
-              src="assets/people/person_2.jpg"
+              src={PF + "people/person_2.jpg"}
               alt=""
               className="profileRightbarFollowingImage"
             />
@@ -113,7 +119,7 @@ function Rightbar({ profile }) {
   return (
     <div className="rightbar" >
       <div className="rightbarWrapper">
-        {profile
+        {user
           ? <ProfileRightbar />
           : <HomeRightbar />
         }
