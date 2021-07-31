@@ -1,24 +1,27 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Feed from '../../components/feed/Feed'
 import Rightbar from '../../components/rightbar/Rightbar'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Topbar from '../../components/topbar/Topbar'
 import "./Profile.css"
-
+import { useParams } from 'react-router'
+import { AuthContext } from '../../context/AuthContext'
 
 function Profile() {
 
   const [user, setUser] = useState({})
+  const { user: currentuser } = useContext(AuthContext)
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  const username = useParams().username
 
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get('/users?username=fgtyuj')
+      const response = await axios.get(`/users?username=${username}`)
       setUser(response.data);
     }
     fetchUser()
-  }, [])
+  }, [user])
 
 
   return (
@@ -31,11 +34,15 @@ function Profile() {
           <div className="profileRightTop">
             {/* start profile cover */}
             <div className="profileCover">
-              <img src={user.coverPicture || PF + "/cover.jpg"}
+              <img src={user.coverPicture ? PF + "/cover.jpg" : PF + "/cover.jpg"}
                 alt=""
                 className="profileCoverImage"
               />
-              <img src={PF + user.profilePicture || PF + "/default_avatar.png"}
+              <img src={user.profilePicture
+                ? user.username === currentuser.username
+                  ? PF + "people/" + user.profilePicture
+                  : PF + user.profilePicture
+                : PF + 'default_avatar.png'}
                 alt=""
                 className="profileUserImage"
               />
@@ -53,7 +60,7 @@ function Profile() {
           </div>
 
           <div className="profileRightBottom">
-            <Feed username='fgtyuj' />
+            <Feed username={username} />
             <Rightbar user={user} />
           </div>
           {/* end profile right */}

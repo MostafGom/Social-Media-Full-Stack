@@ -8,12 +8,12 @@ function Online({ user }) {
 
     <li className="rightbarFriend">
       <div className="rightbarProfileImageContainer">
-        <img src={PF + user.profilePicture}
+        <img src={PF + `people/${user.profilePicture}`}
           alt="profilepic"
           className="rightbarProfileImage" />
         <span className="rightbarOnline"></span>
       </div>
-      <span className="rightbarUsername">user.username</span>
+      <span className="rightbarUsername">{user.username}</span>
     </li>
 
   )

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MoreVert } from '@material-ui/icons'
 import './Post.css'
 import axios from 'axios'
 import { format } from 'timeago.js'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 
 function Post({ post }) {
 
@@ -12,6 +13,11 @@ function Post({ post }) {
   const [likes, setLikes] = useState(post.likes.length)
   const [user, setUser] = useState({})
   const [isLiked, setIsLiked] = useState(false)
+  const { user: currentuser } = useContext(AuthContext)
+
+  useEffect(() => {
+    setIsLiked(post.likes.includes(currentuser._id))
+  }, [currentuser._id, post.likes])
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -24,6 +30,12 @@ function Post({ post }) {
 
 
   const handleLike = () => {
+    try {
+      axios.put('/posts/' + post._id + '/likes', { userId: currentuser._id })
+
+    } catch (error) {
+      console.log(error);
+    }
     setLikes(isLiked ? likes - 1 : likes + 1)
     setIsLiked(!isLiked)
   }
@@ -36,7 +48,11 @@ function Post({ post }) {
           {/* start top left */}
           <div className="postTopLeft">
             <Link to={`/profile/${user.username}`} >
-              <img src={user.profilePicture ? PF + user.profilePicture : PF + 'default_avatar.png'}
+              <img src={user.profilePicture
+                ? user.username === currentuser.username
+                  ? PF + "people/" + user.profilePicture
+                  : PF + user.profilePicture
+                : PF + 'default_avatar.png'}
                 alt="post-author"
                 className="postProfileImage" />
             </Link>
@@ -65,7 +81,7 @@ function Post({ post }) {
           <span className="postCenterContent">
             {post?.desc}
           </span>
-          <img src={post.img && PF + post.img} alt="postpic" className="postCenterImage" />
+          <img src={post.img && PF + `posts/${post.img}`} alt="postpic" className="postCenterImage" />
         </div>
         {/* end post center */}
 
@@ -88,6 +104,9 @@ function Post({ post }) {
           {/* end bottom right */}
 
         </div>
+        <span style={{ color: "cadetblue", marginLeft: "5px", fontSize: "12px" }} >
+          {isLiked ? "you like this" : ""}
+        </span>
         {/* end post bottom */}
 
       </div>

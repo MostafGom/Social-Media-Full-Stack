@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Topbar.css'
 import { Search, Person, Chat, Notifications } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
+import { AuthContext } from '../../context/AuthContext'
 
 function Topbar() {
+  const { user, dispatch } = useContext(AuthContext)
+
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT", payload: user })
+  }
   return (
     <div className='topbarContainer'>
       <div className="topbarLeft">
@@ -22,7 +29,9 @@ function Topbar() {
       <div className="topbarRight">
         <div className="topbarLinks">
           <span className="topbarLink">Home</span>
-          <span className="topbarLink">Timeline </span>
+          <Link to="/login" style={{ textDecoration: "none" }} >
+            <span onClick={handleLogout} className="topbarLink">Log out </span>
+          </Link>
         </div>
         {/* right side icons */}
         <div className="topbarIcons">
@@ -42,7 +51,9 @@ function Topbar() {
             <span className="topbarIconNotification">1</span>
           </div>
         </div>
-        <img src="/assets/people/person_1.jpg" alt="person" className="topbarImage" />
+        <Link to={`/profile/${user.username}`} >
+          <img src={user.profilePicture ? PF + `people/${user.profilePicture}` : PF + 'default_avatar.png'} alt="person" className="topbarImage" />
+        </Link>
       </div>
 
     </div>

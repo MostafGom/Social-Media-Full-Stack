@@ -88,6 +88,7 @@ router.get('/timeline/:userId', async (req, res) => {
     )
 
     res.status(200).json(userPosts.concat(...friendsPosts))
+    // res.status(200).json(friendsPosts)
 
   } catch (error) {
     res.status(500).json(error)
